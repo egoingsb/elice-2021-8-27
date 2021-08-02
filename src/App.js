@@ -39,11 +39,18 @@ function ReadTag(props){
   )
 }
 function App() {
+  var mode = 'WELCOME';
   function onChangeModeHeader(){
     console.log('onChangeModeHeader');
   }
   function onChangeModeNav(){
     console.log('onChangeModeNav');
+  }
+  var article = null;
+  if(mode === 'WELCOME'){
+    article = <ReadTag title="Weclome" desc="Hello, WEB"></ReadTag>
+  } else if(mode === 'READ'){
+    article = <ReadTag title="READ" desc="Hello, READ"></ReadTag>
   }
   return (
     <div>
@@ -52,7 +59,7 @@ function App() {
         {id:1, title:'HTML', desc:'HTML is ...'},
         {id:2, title:'CSS', desc:'CSS is ...'}
       ]}></NavTag>
-      <ReadTag title="Weclome" desc="Hello, WEB"></ReadTag>
+      {article}
     </div>
   );
 }
