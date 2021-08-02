@@ -17,11 +17,11 @@ function NavTag(props){
   console.log('props.data', props.data);
   function clickHander(e){
     e.preventDefault();
-    props.onChangeMode('haha');
+    props.onChangeMode(e.target.dataset.id);
   }
   var lis = [];
   for(var i=0; i<props.data.length; i++){
-    lis.push(<li><a onClick={clickHander} href={props.data[i].id+'.html'}>{props.data[i].title}</a></li>);
+    lis.push(<li><a data-id={props.data[i].id} onClick={clickHander} href={props.data[i].id+'.html'}>{props.data[i].title}</a></li>);
   } 
   return (
     <nav>
