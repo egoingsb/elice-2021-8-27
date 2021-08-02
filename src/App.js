@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
-function HeaderTag(){
+function HeaderTag(props){
+  function onClickHandler(e){
+    e.preventDefault();
+    props.onChangeMode();
+  }
   return(
     <header>
       <h1>
-        <a href="index.html">WEB</a>
+        <a onClick={onClickHandler} href="index.html">WEB</a>
       </h1>
     </header>
   )
 }
-function NavTag(){
+function NavTag(props){
+  console.log('props.data', props.data);
+  function clickHander(e){
+    e.preventDefault();
+    props.onChangeMode();
+  }
+  var lis = [];
+  for(var i=0; i<props.data.length; i++){
+    lis.push(<li><a onClick={clickHander} href={props.data[i].id+'.html'}>{props.data[i].title}</a></li>);
+  } 
   return (
     <nav>
       <ol>
-      <li>
-          <a href="1.html">html</a>
-        </li>
-        <li>
-          <a href="1.html">css</a>
-        </li>
+      {lis}
       </ol>
     </nav>
   )
@@ -32,10 +39,19 @@ function ReadTag(props){
   )
 }
 function App() {
+  function onChangeModeHeader(){
+    console.log('onChangeModeHeader');
+  }
+  function onChangeModeNav(){
+    console.log('onChangeModeNav');
+  }
   return (
     <div>
-      <HeaderTag></HeaderTag>
-      <NavTag></NavTag>
+      <HeaderTag onChangeMode={onChangeModeHeader}></HeaderTag>
+      <NavTag onChangeMode={onChangeModeNav} data={[
+        {id:1, title:'HTML', desc:'HTML is ...'},
+        {id:2, title:'CSS', desc:'CSS is ...'}
+      ]}></NavTag>
       <ReadTag title="Weclome" desc="Hello, WEB"></ReadTag>
     </div>
   );
