@@ -42,6 +42,11 @@ function ReadTag(props){
 function App() {
   console.log('App render');
   var [mode, setMode] = useState('READ');
+  var [id, setId] = useState(1);
+  var topics = [
+    {id:1, title:'HTML', desc:'HTML is ...'},
+    {id:2, title:'CSS', desc:'CSS is ...'}
+  ];
   function onChangeModeHeader(){
     console.log('onChangeModeHeader');
     setMode('WELCOME');
@@ -49,21 +54,24 @@ function App() {
   function onChangeModeNav(id){
     console.log('onChangeModeNav', id);
     setMode('READ');
+    
     // id값에 따른 UI를 변경하는 코드 
   }
   var article = null;
   if(mode === 'WELCOME'){
     article = <ReadTag title="Weclome" desc="Hello, WEB"></ReadTag>
   } else if(mode === 'READ'){
-    article = <ReadTag title="READ" desc="Hello, READ"></ReadTag>
+    for(var i=0; i<topics.length; i++){
+      if(topics[i].id === id){
+        article = <ReadTag title={topics[i].title} desc={topics[i].desc}></ReadTag>
+        break;
+      }
+    }
   }
   return (
     <div>
       <HeaderTag onChangeMode={onChangeModeHeader}></HeaderTag>
-      <NavTag onChangeMode={onChangeModeNav} data={[
-        {id:1, title:'HTML', desc:'HTML is ...'},
-        {id:2, title:'CSS', desc:'CSS is ...'}
-      ]}></NavTag>
+      <NavTag onChangeMode={onChangeModeNav} data={topics}></NavTag>
       {article}
     </div>
   );
