@@ -57,6 +57,10 @@ function App() {
     setId(id);
     // id값에 따른 UI를 변경하는 코드 
   }
+  function onChangeModeControl(_mode){
+    console.log('onChangeModeControl', _mode);
+    setMode(_mode);
+  }
   var article = null;
   if(mode === 'WELCOME'){
     article = <ReadTag title="Weclome" desc="Hello, WEB"></ReadTag>
@@ -67,14 +71,31 @@ function App() {
         break;
       }
     }
+  } else if(mode === 'CREATE'){
+    article = <div>Create</div>
+  } else if(mode === 'UPDATE'){
+    article = <div>Update</div>
   }
   return (
     <div>
       <HeaderTag onChangeMode={onChangeModeHeader}></HeaderTag>
       <NavTag onChangeMode={onChangeModeNav} data={topics}></NavTag>
       {article}
+      <Control onChangeMode={onChangeModeControl}></Control>
     </div>
   );
+}
+function Control(props){
+  function clickHandler(e){
+    e.preventDefault();
+    props.onChangeMode(e.target.dataset.mode);
+  }
+  return (
+    <div>
+      <a href="/create" data-mode="CREATE" onClick={clickHandler}>create</a> | 
+      <a href="/update" data-mode="UPDATE" onClick={clickHandler}>update</a> | 
+      <input type="button" value="DELETE" data-mode="delete" onClick={clickHandler}></input>
+    </div>);
 }
 
 export default App;
