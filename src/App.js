@@ -17,7 +17,7 @@ function NavTag(props){
   console.log('props.data', props.data);
   function clickHander(e){
     e.preventDefault();
-    props.onChangeMode(e.target.dataset.id);
+    props.onChangeMode(Number(e.target.dataset.id));
   }
   var lis = [];
   for(var i=0; i<props.data.length; i++){
@@ -54,7 +54,7 @@ function App() {
   function onChangeModeNav(id){
     console.log('onChangeModeNav', id);
     setMode('READ');
-    
+    setId(id);
     // id값에 따른 UI를 변경하는 코드 
   }
   var article = null;
