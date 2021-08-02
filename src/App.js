@@ -1,4 +1,5 @@
 import './App.css';
+import {useState} from 'react';
 function HeaderTag(props){
   function onClickHandler(e){
     e.preventDefault();
@@ -39,12 +40,15 @@ function ReadTag(props){
   )
 }
 function App() {
-  var mode = 'WELCOME';
+  console.log('App render');
+  var [mode, setMode] = useState('WELCOME');
   function onChangeModeHeader(){
     console.log('onChangeModeHeader');
+    setMode('WELCOME');
   }
   function onChangeModeNav(){
     console.log('onChangeModeNav');
+    setMode('READ');
   }
   var article = null;
   if(mode === 'WELCOME'){
