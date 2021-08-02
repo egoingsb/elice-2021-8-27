@@ -17,7 +17,7 @@ function NavTag(props){
   console.log('props.data', props.data);
   function clickHander(e){
     e.preventDefault();
-    props.onChangeMode();
+    props.onChangeMode('haha');
   }
   var lis = [];
   for(var i=0; i<props.data.length; i++){
@@ -41,14 +41,15 @@ function ReadTag(props){
 }
 function App() {
   console.log('App render');
-  var [mode, setMode] = useState('WELCOME');
+  var [mode, setMode] = useState('READ');
   function onChangeModeHeader(){
     console.log('onChangeModeHeader');
     setMode('WELCOME');
   }
-  function onChangeModeNav(){
-    console.log('onChangeModeNav');
+  function onChangeModeNav(id){
+    console.log('onChangeModeNav', id);
     setMode('READ');
+    // id값에 따른 UI를 변경하는 코드 
   }
   var article = null;
   if(mode === 'WELCOME'){
