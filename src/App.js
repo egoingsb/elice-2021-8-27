@@ -21,7 +21,7 @@ function NavTag(props){
   }
   var lis = [];
   for(var i=0; i<props.data.length; i++){
-    lis.push(<li><a data-id={props.data[i].id} onClick={clickHander} href={props.data[i].id+'.html'}>{props.data[i].title}</a></li>);
+    lis.push(<li key={props.data[i].id}><a data-id={props.data[i].id} onClick={clickHander} href={props.data[i].id+'.html'}>{props.data[i].title}</a></li>);
   } 
   return (
     <nav>
