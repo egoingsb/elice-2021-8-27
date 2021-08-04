@@ -39,6 +39,24 @@ function ReadTag(props){
     </article>
   )
 }
+function Create(props){
+  return (
+    <form onSubmit={e=>{
+      e.preventDefault();
+      var title = e.target.title.value;
+      var desc = e.target.desc.value;
+      props.onCreate({
+        title:title,
+        desc:desc
+      });
+    }}>
+      <h2>Create</h2>
+      <p><input name="title" type="text" placeholder="title"></input></p>
+      <p><textarea name="desc" placeholder="description"></textarea></p>
+      <p><input type="submit"></input></p>
+    </form>
+  )
+}
 function App() {
   console.log('App render');
   var [nextId,setNextId] = useState(3);
@@ -73,54 +91,18 @@ function App() {
       }
     }
   } else if(mode === 'CREATE'){
-    // function onSubmitHandler(e){
-    //   e.preventDefault();
-    // }
-    // var onSubmitHandler2 = function(e){
-    //   e.preventDefault();
-    // }
-    // var onSubmitHandler3 = (e)=>{
-    //   e.preventDefault();
-    // }
-    // var onSubmitHandler4 = e=>{
-    //   e.preventDefault();
-    // }
-    // var onSubmitHandler5 = e=>e.preventDefault();
-
-    article = (
-      <form onSubmit={e=>{
-        e.preventDefault();
-        var title = e.target.title.value;
-        var desc = e.target.desc.value;
-        
-        /*
-        XXXXXXX
-        topics.push({
-          "id":3,
-          "title":title,
-          "desc":desc
-        });
-        setTopics(topics);
-        */
-
-        var newTopics = [...topics];
-        newTopics.push({
-          "id":nextId,
-          "title":title,
-          "desc":desc
-        });
-        setTopics(newTopics);
-        setMode('READ');
-        setId(nextId);
-        setNextId(nextId+1);
-        
-      }}>
-        <h2>Create</h2>
-        <p><input name="title" type="text" placeholder="title"></input></p>
-        <p><textarea name="desc" placeholder="description"></textarea></p>
-        <p><input type="submit"></input></p>
-      </form>
-    )
+    article = <Create onCreate={data=>{
+      var newTopics = [...topics];
+      newTopics.push({
+        "id":nextId,
+        "title":data.title,
+        "desc":data.desc
+      });
+      setTopics(newTopics);
+      setMode('READ');
+      setId(nextId);
+      setNextId(nextId+1);
+    }}></Create>
   } else if(mode === 'UPDATE'){
     article = <div>Update</div>
   }
