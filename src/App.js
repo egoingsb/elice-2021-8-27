@@ -94,6 +94,7 @@ function App() {
         var desc = e.target.desc.value;
         
         /*
+        XXXXXXX
         topics.push({
           "id":3,
           "title":title,
@@ -109,7 +110,10 @@ function App() {
           "desc":desc
         });
         setTopics(newTopics);
+        setMode('READ');
+        setId(nextId);
         setNextId(nextId+1);
+        
       }}>
         <h2>Create</h2>
         <p><input name="title" type="text" placeholder="title"></input></p>
