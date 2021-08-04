@@ -57,6 +57,32 @@ function Create(props){
     </form>
   )
 }
+function Update(props){
+  var [title, setTitle] = useState(props.title);
+  var [desc, setDesc] = useState(props.desc);
+  return (
+    <form onSubmit={e=>{
+      e.preventDefault();
+      var title = e.target.title.value;
+      var desc = e.target.desc.value;
+      props.onUpdate({
+        title:title,
+        desc:desc
+      });
+    }}>
+      <h2>Update</h2>
+      <p>
+        <input 
+          name="title" 
+          type="text" 
+          placeholder="title" 
+          onChange={e=>setTitle(e.target.value)} 
+          value={title}></input></p>
+      <p><textarea onChange={e=>setDesc(e.target.value)} name="desc" placeholder="description" value={desc}></textarea></p>
+      <p><input type="submit"></input></p>
+    </form>
+  )
+}
 function App() {
   console.log('App render');
   var [nextId,setNextId] = useState(3);
@@ -104,7 +130,27 @@ function App() {
       setNextId(nextId+1);
     }}></Create>
   } else if(mode === 'UPDATE'){
-    article = <div>Update</div>
+    for(var i=0; i<topics.length; i++){
+      if(topics[i].id === id){
+        article = <Update title={topics[i].title} desc={topics[i].desc} onUpdate={data=>{
+          console.log('update', data);
+          var newTopics = [...topics];
+          for(var i=0; i<newTopics.length; i++){
+            if(newTopics[i].id === id){
+              newTopics[i] = {
+                "id":newTopics[i].id,
+                "title":data.title,
+                "desc":data.desc
+              }
+            }
+          }
+          setTopics(newTopics);
+          setMode('READ');
+        }}></Update>
+        break;
+      }
+    }
+    
   }
   return (
     <div>
