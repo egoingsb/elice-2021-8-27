@@ -76,7 +76,10 @@ function Update(props){
           name="title" 
           type="text" 
           placeholder="title" 
-          onChange={e=>setTitle(e.target.value)} 
+          onChange={e=>{
+            console.log(e.target.value);
+            setTitle(e.target.value)
+          }} 
           value={title}></input></p>
       <p><textarea onChange={e=>setDesc(e.target.value)} name="desc" placeholder="description" value={desc}></textarea></p>
       <p><input type="submit"></input></p>
@@ -103,8 +106,18 @@ function App() {
     // id값에 따른 UI를 변경하는 코드 
   }
   function onChangeModeControl(_mode){
-    console.log('onChangeModeControl', _mode);
-    setMode(_mode);
+    if(_mode==='DELETE'){
+      var newTopics = [];
+      for(var i=0; i<topics.length; i++){
+        if(topics[i].id === id){
+        } else {
+          newTopics.push(topics[i]);
+        }
+      }
+      setTopics(newTopics);
+    } else {
+      setMode(_mode);
+    }
   }
   var article = null;
   if(mode === 'WELCOME'){
@@ -138,9 +151,9 @@ function App() {
           for(var i=0; i<newTopics.length; i++){
             if(newTopics[i].id === id){
               newTopics[i] = {
-                "id":newTopics[i].id,
-                "title":data.title,
-                "desc":data.desc
+                id:newTopics[i].id,
+                title:data.title,
+                desc:data.desc
               }
             }
           }
@@ -170,7 +183,7 @@ function Control(props){
     <div>
       <a href="/create" data-mode="CREATE" onClick={clickHandler}>create</a> | 
       <a href="/update" data-mode="UPDATE" onClick={clickHandler}>update</a> | 
-      <input type="button" value="DELETE" data-mode="delete" onClick={clickHandler}></input>
+      <input type="button" value="DELETE" data-mode="DELETE" onClick={clickHandler}></input>
     </div>);
 }
 
